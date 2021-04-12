@@ -1,1 +1,1 @@
-export const graphqlUrl = 'http://localhost:9002/graphql';
+export const graphqlUrl = 'http://127.0.0.1:9002/graphql';
