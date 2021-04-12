@@ -18,7 +18,7 @@ const EmployeeItem = ({ employee,increment,decrement }) => {
                         <button onClick={() => {increment(employee.id,employee.vote)}} className={`${employeeStyles.btn} ${employeeStyles.btnPrimary}`}>+</button>
                     </div>
                 </div>
-                <div><Link href="/employee/[id]" as={`/employee/2`}><button className={`${employeeStyles.btn} ${employeeStyles.btnPrimary}`}>Go to Detail</button></Link></div>
+                <div><Link href="/employee/[id]" as={`/employee/${employee.id}`}}><button className={`${employeeStyles.btn} ${employeeStyles.btnPrimary}`}>Go to Detail</button></Link></div>
                 <span className={employeeStyles.score}>Score: {employee.vote}</span>
             </div>
 
