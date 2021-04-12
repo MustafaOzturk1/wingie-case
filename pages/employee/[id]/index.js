@@ -38,7 +38,7 @@ export const getServerSideProps = async (context) => {
     const { data } = await client.query({
         query: gql`
         query Employee {
-            employee{
+            employee(id:${context.params.id}){
                 id,
                 firstName,
                 lastName,
@@ -48,7 +48,7 @@ export const getServerSideProps = async (context) => {
                 city,
                 avatar
             }
-        }   
+        }  
         `
     })
     return {
