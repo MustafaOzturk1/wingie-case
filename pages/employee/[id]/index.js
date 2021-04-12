@@ -5,20 +5,19 @@ import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 import { graphqlUrl } from '../../../constants/constant'
 import employeeStyles from '../../../styles/Employee.module.scss'
 
-const employee = ({article}) => {
-    console.log(article);
+const employee = ({data}) => {
+    debugger
     return (
         <>
         <Head>
-            <title>Employee Detail</title>
+        <title>Employee Detail</title>
         </Head>
         <div className={employeeStyles.card}>
             <div className={employeeStyles.cardbody}>
-                {article.title}
-                {/* <p>
-                    <img src={employee.avatar} alt="card image" />
+                <p>
+                    <img src={data.employee.avatar} alt="card image" />
                 </p>
-                <span>
+                {/* <span>
                     <p>{employee.firstName + " " + employee.lastName}</p>
                     <p>{employee.email}</p>
                     <p>{employee.phone}</p>
@@ -33,32 +32,29 @@ const employee = ({article}) => {
 }
 
 export const getServerSideProps = async (context) => {
-    const res = await fetch('https://jsonplaceholder.typicode.com/posts/'+context.params.id)
-    const article = await res.json()
-
-    // const client = new ApolloClient({
-    //     uri: graphqlUrl,
-    //     cache: new InMemoryCache()
-    // })
-    // const { data } = await client.query({
-    //     query: gql`
-    //     query Employee {
-    //         employee{
-    //             id,
-    //             firstName,
-    //             lastName,
-    //             email,
-    //             phone,
-    //             address,
-    //             city,
-    //             avatar
-    //         }
-    //     }   
-    //     `
-    // })
+    const client = new ApolloClient({
+        uri: graphqlUrl,
+        cache: new InMemoryCache()
+    })
+    const { data } = await client.query({
+        query: gql`
+        query Employee {
+            employee{
+                id,
+                firstName,
+                lastName,
+                email,
+                phone,
+                address,
+                city,
+                avatar
+            }
+        }   
+        `
+    })
     return {
         props: {
-            article
+            data,
         }
     }
 }
