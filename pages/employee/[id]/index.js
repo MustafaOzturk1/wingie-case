@@ -6,7 +6,7 @@ import { graphqlUrl } from '../../../constants/constant'
 import employeeStyles from '../../../styles/Employee.module.scss'
 import { useRouter } from 'next/dist/client/router';
 
-const employee = (employee) => {
+const employee = ({employee}) => {
     const router = useRouter();
     const {id} = router.query;
     return (
