@@ -4,29 +4,27 @@ import Link from 'next/link'
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 import { graphqlUrl } from '../../../constants/constant'
 import employeeStyles from '../../../styles/Employee.module.scss'
-import { useRouter } from 'next/dist/client/router';
 
-const employee = ({employee}) => {
-    const router = useRouter();
-    const {id} = router.query;
+const employee = ({article}) => {
+    console.log(article);
     return (
         <>
         <Head>
             <title>Employee Detail</title>
         </Head>
         <div className={employeeStyles.card}>
-            {id}
             <div className={employeeStyles.cardbody}>
+                {article.title}
                 {/* <p>
                     <img src={employee.avatar} alt="card image" />
-                </p> */}
+                </p>
                 <span>
-                    {/* <p>{employee.firstName + " " + employee.lastName}</p> */}
-                    {/* <p>{employee.email}</p>
+                    <p>{employee.firstName + " " + employee.lastName}</p>
+                    <p>{employee.email}</p>
                     <p>{employee.phone}</p>
                     <p>{employee.city}</p>
-                    <p>{employee.address}</p> */}
-                </span>
+                    <p>{employee.address}</p>
+                </span> */}
             </div>
         </div>
         <Link href='/'>Go Back</Link>
@@ -35,29 +33,32 @@ const employee = ({employee}) => {
 }
 
 export const getServerSideProps = async (context) => {
-    const client = new ApolloClient({
-        uri: graphqlUrl,
-        cache: new InMemoryCache()
-    })
-    const { data } = await client.query({
-        query: gql`
-        query Employee {
-            employee{
-                id,
-                firstName,
-                lastName,
-                email,
-                phone,
-                address,
-                city,
-                avatar
-            }
-        }   
-        `
-    })
+    const res = await fetch('https://jsonplaceholder.typicode.com/posts/'+context.params.id)
+    const article = await res.json()
+
+    // const client = new ApolloClient({
+    //     uri: graphqlUrl,
+    //     cache: new InMemoryCache()
+    // })
+    // const { data } = await client.query({
+    //     query: gql`
+    //     query Employee {
+    //         employee{
+    //             id,
+    //             firstName,
+    //             lastName,
+    //             email,
+    //             phone,
+    //             address,
+    //             city,
+    //             avatar
+    //         }
+    //     }   
+    //     `
+    // })
     return {
         props: {
-            ...data.employee,
+            article
         }
     }
 }
