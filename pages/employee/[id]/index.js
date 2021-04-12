@@ -5,8 +5,7 @@ import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 import { graphqlUrl } from '../../../constants/constant'
 import employeeStyles from '../../../styles/Employee.module.scss'
 
-const employee = ({data}) => {
-    debugger
+const employee = (employee) => {
     return (
         <>
         <Head>
@@ -15,15 +14,15 @@ const employee = ({data}) => {
         <div className={employeeStyles.card}>
             <div className={employeeStyles.cardbody}>
                 <p>
-                    <img src={data.employee.avatar} alt="card image" />
+                    <img src={employee.avatar} alt="card image" />
                 </p>
-                {/* <span>
+                <span>
                     <p>{employee.firstName + " " + employee.lastName}</p>
                     <p>{employee.email}</p>
                     <p>{employee.phone}</p>
                     <p>{employee.city}</p>
                     <p>{employee.address}</p>
-                </span> */}
+                </span>
             </div>
         </div>
         <Link href='/'>Go Back</Link>
@@ -54,7 +53,7 @@ export const getServerSideProps = async (context) => {
     })
     return {
         props: {
-            data,
+            ...data.employee,
         }
     }
 }
