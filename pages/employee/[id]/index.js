@@ -21,7 +21,7 @@ const employee = (employee) => {
                     <img src={employee.avatar} alt="card image" />
                 </p> */}
                 <span>
-                    <p>{employee.firstName + " " + employee.lastName}</p>
+                    {/* <p>{employee.firstName + " " + employee.lastName}</p> */}
                     {/* <p>{employee.email}</p>
                     <p>{employee.phone}</p>
                     <p>{employee.city}</p>
