@@ -16,50 +16,50 @@ const employee = (employee) => {
         </Head>
         <div className={employeeStyles.card}>
             {id}
-            {/* <div className={employeeStyles.cardbody}>
-                <p>
+            <div className={employeeStyles.cardbody}>
+                {/* <p>
                     <img src={employee.avatar} alt="card image" />
-                </p>
+                </p> */}
                 <span>
                     <p>{employee.firstName + " " + employee.lastName}</p>
-                    <p>{employee.email}</p>
+                    {/* <p>{employee.email}</p>
                     <p>{employee.phone}</p>
                     <p>{employee.city}</p>
-                    <p>{employee.address}</p>
+                    <p>{employee.address}</p> */}
                 </span>
-            </div> */}
+            </div>
         </div>
         <Link href='/'>Go Back</Link>
         </>
     )
 }
 
-// export const getServerSideProps = async (context) => {
-//     const client = new ApolloClient({
-//         uri: graphqlUrl,
-//         cache: new InMemoryCache()
-//     })
-//     const { data } = await client.query({
-//         query: gql`
-//         query Employee {
-//             employee{
-//                 id,
-//                 firstName,
-//                 lastName,
-//                 email,
-//                 phone,
-//                 address,
-//                 city,
-//                 avatar
-//             }
-//         }   
-//         `
-//     })
-//     return {
-//         props: {
-//             ...data.employee,
-//         }
-//     }
-// }
+export const getServerSideProps = async (context) => {
+    const client = new ApolloClient({
+        uri: graphqlUrl,
+        cache: new InMemoryCache()
+    })
+    const { data } = await client.query({
+        query: gql`
+        query Employee {
+            employee{
+                id,
+                firstName,
+                lastName,
+                email,
+                phone,
+                address,
+                city,
+                avatar
+            }
+        }   
+        `
+    })
+    return {
+        props: {
+            ...data.employee,
+        }
+    }
+}
 
 export default employee
